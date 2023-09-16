@@ -8,7 +8,7 @@ class Type(Base):
     __tablename__ = 'types'
 
     id: int = Column(Integer, primary_key=True)
-    name: str = Column(String(length=30), nullable=False)
+    name: str = Column(String(length=30), nullable=False, unique=True)
 
     tools = relationship('Tool', back_populates='type')
 
