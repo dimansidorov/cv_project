@@ -23,7 +23,7 @@ class ToolBase(BaseModel):
 
 
 class ToolRead(ToolBase):
-    type: TypeRead
+    # type: TypeRead
     class Config:
         from_attributes= True
 

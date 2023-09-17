@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, insert
 from database import get_async_session
-from .models import Type
+from .models import Type, Tool
 from .schemas import TypeCreate, TypeRead, ToolRead, ToolCreate
 
 
@@ -30,10 +30,17 @@ async def add_new_type(new_type: TypeCreate, session: AsyncSession = Depends(get
 
 @router.get('/tools', response_model=List[ToolRead])
 async def get_tools(session: AsyncSession = Depends(get_async_session)):
-    pass
+    query = select(Tool.__table__)
+    result = await session.execute(query)
+    
+    return result
 
 
 @router.post('/new_tool')
-async def get_tools(new_tool: ToolCreate, session: AsyncSession = Depends(get_async_session)):
-    pass
+async def add_new_tool(new_tool: ToolCreate, session: AsyncSession = Depends(get_async_session)):
+    statement = insert(Tool.__table__).values(**new_tool.dict())
+    await session.execute(statement)
+    await session.commit()
+
+    return {"status": "success"}
 
