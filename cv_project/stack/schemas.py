@@ -22,11 +22,11 @@ class ToolBase(BaseModel):
     cover: Optional[str]
 
 
-# class ToolRead(ToolBase):
-#     type: TypeRead
-#     class Config:
-#         from_attributes= True
+class ToolRead(ToolBase):
+    type: TypeRead
+    class Config:
+        from_attributes= True
 
 
-# class ToolCreate(ToolBase):
-#     type_id: int = Field(..., description="ID of the related Type")
+class ToolCreate(ToolBase):
+    type_id: int = Field(..., description="ID of the related Type")

@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, insert
 from database import get_async_session
 from .models import Type
-from .schemas import TypeCreate, TypeRead
+from .schemas import TypeCreate, TypeRead, ToolRead, ToolCreate
 
 
 router = APIRouter(prefix='/stack', tags=['Stack'])
@@ -26,4 +26,14 @@ async def add_new_type(new_type: TypeCreate, session: AsyncSession = Depends(get
     await session.commit()
 
     return {"status": "success"}
+
+
+@router.get('/tools', response_model=List[ToolRead])
+async def get_tools(session: AsyncSession = Depends(get_async_session)):
+    pass
+
+
+@router.post('/new_tool')
+async def get_tools(new_tool: ToolCreate, session: AsyncSession = Depends(get_async_session)):
+    pass
 
