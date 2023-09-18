@@ -12,6 +12,7 @@ sys.path.append(os.path.join(sys.path[0], 'cv_project'))
 from config import DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
 from database import Base
 from cv_project.stack.models import Type, Tool
+from cv_project.auth.models import User
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
