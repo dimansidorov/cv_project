@@ -1,26 +1,35 @@
 from database import Base
 
-from sqlalchemy import Column, String, Integer, Text, ForeignKey
+from sqlalchemy import Column, String, Integer, Text, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
 
-class Type(Base):
-    __tablename__ = 'types'
+types = Table(
+    'types',
+    Base.metadata,
+    Column('id', Integer, primary_key=True),
+    Column('name', String(length=30), nullable=False, unique=True),
+)
 
-    id: int = Column(Integer, primary_key=True)
-    name: str = Column(String(length=30), nullable=False, unique=True)
+tools = Table(
+    'tools',
+    Base.metadata,
+    Column('id', Integer, primary_key=True),
+    Column('name', String(length=30), nullable=False),
+    Column('description', Text),
+    Column('link', String(length=255)),
+    Column('cover', String(length=150), nullable=True),
+    Column('type_id', Integer, ForeignKey('types.id')),
+)
+    
+
+class Type(Base):
+    __table__ = types
 
     tools = relationship('Tool', back_populates='type')
 
 
 class Tool(Base):
-    __tablename__ = 'tools'
-
-    id: int = Column(Integer, primary_key=True)
-    name: str = Column(String(length=30), nullable=False)
-    description: str = Column(Text)
-    link: str = Column(String(length=255))
-    cover: str = Column(String(length=150), nullable=True)
-    type_id: int = Column(Integer, ForeignKey('types.id'))
+    __table__ = tools
 
     type = relationship('Type', back_populates='tools')

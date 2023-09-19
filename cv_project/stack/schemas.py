@@ -7,8 +7,7 @@ class TypeBase(BaseModel):
 
 
 class TypeRead(TypeBase):
-    class Config:
-        from_attributes= True
+    pass
 
 
 class TypeCreate(TypeBase):
@@ -19,14 +18,12 @@ class ToolBase(BaseModel):
     name: str
     description: str
     link: str
-    cover: Optional[str]
+    type_id: int
 
 
 class ToolRead(ToolBase):
-    # type: TypeRead
-    class Config:
-        from_attributes= True
+    pass
 
 
 class ToolCreate(ToolBase):
-    type_id: int = Field(..., description="ID of the related Type")
+    pass
